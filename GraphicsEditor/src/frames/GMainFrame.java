@@ -1,6 +1,8 @@
 package frames;
 import java.awt.BorderLayout;
+import java.awt.LayoutManager;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
 import constants.GConstants;
@@ -19,8 +21,8 @@ public class GMainFrame extends JFrame {
 		this.setTitle(GConstants.MAINFRAME_TITLE);
 		this.setLocation(EMainFrame.X.getValue(),EMainFrame.Y.getValue());
 		this.setSize(EMainFrame.W.getValue(), EMainFrame.H.getValue());
-		this.setLayout(new BorderLayout());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(new BorderLayout());
 		// component creation & registration
 		this.menuBar = new GMenuBar();
 		this.setJMenuBar(menuBar);

@@ -1,7 +1,6 @@
 package constants;
 
 
-import java.awt.Dimension;
 
 import shapes.GEllipse;
 import shapes.GLine;
@@ -14,6 +13,7 @@ public class GConstants {
 	public final static String FILEMENU_TITLE = "File";
 	public final static String EDITMENU_TITLE = "Edit";
 
+	public enum EAnchors {NN, NE, NW, SS, SW, SE, EE, WW, RR, MM};
 	// JFrame attributes
 	public static enum EMainFrame {
 		X(100), Y(100), W(400), H(600);

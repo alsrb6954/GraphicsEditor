@@ -1,4 +1,5 @@
 package frames;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
@@ -8,7 +9,8 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
-import constants.GConstants.EDrawingType;
+import constants.GConstants;
+import constants.GConstants.EAnchors;
 import shapes.GShape;
 
 
@@ -38,9 +40,9 @@ public class GDrawingPanel extends JPanel {
 		this.addMouseListener(mousEventHandler);
 		this.addMouseMotionListener(mousEventHandler);
 		this.shapeVector = new Vector<GShape>();
+		setOpaque(false);
 	}
 	public void initialize() {
-		// TODO Auto-generated method stub	
 	}	
 	
 	public void paint(Graphics g) {
@@ -48,8 +50,14 @@ public class GDrawingPanel extends JPanel {
 			shape.draw((Graphics2D)g);
 		}
 	}
-
+	private void resetSelected(){
+		for(GShape shape: this.shapeVector){
+			shape.setSelected(false);
+		}
+		this.repaint();
+	}
 	private void initDrawing(int x, int y){
+		this.resetSelected();
 		this.currentShape = this.selectedShape.clone();
 		Graphics2D g2D = (Graphics2D)this.getGraphics();
 		g2D.setXORMode(this.getBackground());
@@ -70,15 +78,51 @@ public class GDrawingPanel extends JPanel {
 		g2D.setXORMode(this.getBackground());
 		this.currentShape.finishDrawing(x,y,g2D);
 		this.shapeVector.add(this.currentShape);
+		this.currentShape.setSelected(true);
+		this.repaint();
 	}
-	private void changePointShape(int x, int y){
+	private void changeCursor(int x, int y){
 		for(GShape shape: this.shapeVector){
-			if(shape.contains(x,y)){
-				
-			} else{
-				
+			EAnchors eAnchors = shape.contains(x, y);
+			if(eAnchors != null) {
+				switch (eAnchors) {
+				case NN:
+					this.setCursor(new Cursor(Cursor.N_RESIZE_CURSOR));
+					return;
+				case NW:
+					this.setCursor(new Cursor(Cursor.NW_RESIZE_CURSOR));
+					return;
+				case NE:
+					this.setCursor(new Cursor(Cursor.NE_RESIZE_CURSOR));
+					return;
+				case SS:
+					this.setCursor(new Cursor(Cursor.S_RESIZE_CURSOR));
+					return;
+				case SE:
+					this.setCursor(new Cursor(Cursor.SE_RESIZE_CURSOR));
+					return;
+				case SW:
+					this.setCursor(new Cursor(Cursor.SW_RESIZE_CURSOR));
+					return;
+				case EE:
+					this.setCursor(new Cursor(Cursor.E_RESIZE_CURSOR));
+					return;
+				case WW:
+					this.setCursor(new Cursor(Cursor.W_RESIZE_CURSOR));
+					return;
+				case RR:
+					this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					return;
+				case MM:
+					this.setCursor(new Cursor(Cursor.MOVE_CURSOR));
+					return;
+				default:
+					break;
+				}
 			}
+			this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		}
+		
 	}
 
 	class MousEventHandler implements MouseMotionListener, MouseInputListener{
@@ -92,10 +136,8 @@ public class GDrawingPanel extends JPanel {
 		}
 		private void mouse1Clicked(MouseEvent e){
 			if(eState == EState.idleNP){
-				if(selectedShape.geteDrawingType() == EDrawingType.NP) {
-					initDrawing(e.getX(), e.getY());
-					eState = EState.drawingNP;
-				}
+				initDrawing(e.getX(), e.getY());
+				eState = EState.drawingNP;
 			} else if(eState == EState.drawingNP){
 				continueDrawing(e.getX(),e.getY());
 			}
@@ -130,8 +172,8 @@ public class GDrawingPanel extends JPanel {
 		public void mouseMoved(MouseEvent e) {
 			if(eState == EState.drawingNP){
 				keepDrawing(e.getX(), e.getY());
-			} else if(eState == EState.idleNP || eState == EState.idleNP){
-				changePointShape(e.getX(), e.getY());
+			} else if(eState == EState.idleNP || eState == EState.idleTP){
+				changeCursor(e.getX(), e.getY());
 			}
 		}
 		@Override
