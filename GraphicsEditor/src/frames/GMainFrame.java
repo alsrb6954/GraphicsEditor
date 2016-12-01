@@ -1,8 +1,6 @@
 package frames;
 import java.awt.BorderLayout;
-import java.awt.LayoutManager;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 
 import constants.GConstants;
@@ -33,11 +31,9 @@ public class GMainFrame extends JFrame {
 	}
 	
 	public void initialize(){
-		// set associations among components
-		toolBar.setDrawingPanel(drawingPanel);
 		// component initialization
-		menuBar.initialize();	
-		toolBar.initialize();	
+		menuBar.initialize(this.drawingPanel);	
+		toolBar.initialize(this.drawingPanel);	
 		drawingPanel.initialize();
 		
 		

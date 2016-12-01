@@ -14,11 +14,7 @@ public class GToolBar extends JToolBar {
 	
 	//association
 	private GDrawingPanel drawingPanel;
-	public void setDrawingPanel(GDrawingPanel drawingPanel){
-		this.drawingPanel = drawingPanel;
-	}
 	
-
 	public GToolBar() {
 		ButtonGroup buttonGroup = new ButtonGroup();
 		ActionHandler actionHandler = new ActionHandler();
@@ -35,7 +31,8 @@ public class GToolBar extends JToolBar {
 
 		}
 	}
-	public void initialize() {
+	public void initialize(GDrawingPanel drawingPanel) {
+		this.drawingPanel = drawingPanel;
 		JRadioButton button = (JRadioButton) this.getComponentAtIndex(EToolBarButton.rectangle.ordinal());
 		button.doClick();
 	}

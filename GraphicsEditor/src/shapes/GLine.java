@@ -1,6 +1,5 @@
 package shapes;
 
-import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 
 import constants.GConstants.EDrawingType;
@@ -11,16 +10,19 @@ public class GLine extends GShape {
 		super(EDrawingType.TP, new Line2D.Double(0, 0, 0, 0));
 		this.line = (Line2D)getShape();
 	}
-	@Override
-	public void initDrawing(int x, int y, Graphics2D g2D) {
+	public void setOrigin(int x, int y) {
 		this.line.setLine(x, y, x, y);
-		this.draw(g2D);
 	}
-	@Override
-	public void keepDrawing(int x, int y, Graphics2D g2D) {
-		this.draw(g2D);
+	public void setPoint(int x, int y) {
+		this.px = x;
+		this.py = y;
+	}
+	public void addPoint(int x, int y) {
+	}
+	public void resize(int x, int y) {
 		this.line.setLine(this.line.getX1(), this.line.getY1(), x, y);
-		this.draw(g2D);
+	}
+	public void move(int x, int y) {
 	}
 
 }

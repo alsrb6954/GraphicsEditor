@@ -1,7 +1,5 @@
 package shapes;
 
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import constants.GConstants.EDrawingType;
@@ -13,17 +11,54 @@ public class GRectangle extends GShape{
 		super(EDrawingType.TP, new Rectangle(0, 0, 0, 0));
 		this.rectangle =(Rectangle)this.getShape();
 	}
-	@Override
-	public void initDrawing(int x, int y, Graphics2D g2D) {
+	public void setOrigin(int x, int y) {
 		this.rectangle.setLocation(x, y);
-		this.draw(g2D);
 	}
-	@Override
-	public void keepDrawing(int x, int y, Graphics2D g2D) {
-		// erase shape
-		this.draw(g2D);
-		this.rectangle.setSize(new Dimension(x - this.rectangle.x, y - this.rectangle.y));
-		// redraw shape
-		this.draw(g2D);
+	public void setPoint(int x, int y){
+		this.px = x;
+		this.py = y;
+	}
+	public void move(int x, int y){
+		this.rectangle.x += x - px;
+		this.rectangle.y += y - py;
+		this.setPoint(x, y);
+	}
+	public void addPoint(int x, int y) {
+	}
+	public void resize(int x, int y) {
+		if(this.getCurrentEAnchor() == null){
+			this.rectangle.width = x - this.rectangle.x;
+			this.rectangle.height = y - this.rectangle.y;
+			return;
+		}
+		switch (this.getCurrentEAnchor()) {
+		case NN:
+			break;
+		case NW:
+			this.rectangle.x = x;
+			this.rectangle.y = y;
+			this.rectangle.width += px - x;
+			this.rectangle.height += py - y;
+			break;
+		case NE:
+			break;
+		case SS:
+			break;
+		case SE:
+			this.rectangle.width = x - this.rectangle.x;
+			this.rectangle.height = y - this.rectangle.y;
+			break;
+		case SW:
+			break;
+		case EE:
+			break;
+		case WW:
+			break;
+		case MM:
+			break;
+		default:
+			break;
+		}
+		this.setPoint(x,y);
 	}
 }
