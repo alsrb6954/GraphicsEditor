@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 import constants.GConstants.EDrawingType;
 
 public class GRectangle extends GShape{
+	private static final long serialVersionUID = 1L;
 	private Rectangle rectangle;
 	
 	public GRectangle(){
@@ -18,47 +19,11 @@ public class GRectangle extends GShape{
 		this.px = x;
 		this.py = y;
 	}
-	public void move(int x, int y){
-		this.rectangle.x += x - px;
-		this.rectangle.y += y - py;
-		this.setPoint(x, y);
-	}
 	public void addPoint(int x, int y) {
 	}
-	public void resize(int x, int y) {
-		if(this.getCurrentEAnchor() == null){
-			this.rectangle.width = x - this.rectangle.x;
-			this.rectangle.height = y - this.rectangle.y;
-			return;
-		}
-		switch (this.getCurrentEAnchor()) {
-		case NN:
-			break;
-		case NW:
-			this.rectangle.x = x;
-			this.rectangle.y = y;
-			this.rectangle.width += px - x;
-			this.rectangle.height += py - y;
-			break;
-		case NE:
-			break;
-		case SS:
-			break;
-		case SE:
-			this.rectangle.width = x - this.rectangle.x;
-			this.rectangle.height = y - this.rectangle.y;
-			break;
-		case SW:
-			break;
-		case EE:
-			break;
-		case WW:
-			break;
-		case MM:
-			break;
-		default:
-			break;
-		}
+	public void drawPoint(int x, int y) {
+		this.rectangle.width = x - this.rectangle.x;
+		this.rectangle.height = y - this.rectangle.y;
 		this.setPoint(x,y);
 	}
 }

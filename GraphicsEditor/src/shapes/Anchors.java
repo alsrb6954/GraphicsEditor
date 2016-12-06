@@ -2,6 +2,8 @@ package shapes;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.util.Vector;
 
@@ -13,6 +15,7 @@ public class Anchors extends Vector<Ellipse2D.Double>{
 	private static final long serialVersionUID = 1L;
 	public final static int ANCHORWIDTH = 8;
 	public final static int ANCHORHIEGHT = 8;	
+	public Rectangle getBounds(EAnchors eAnchorType) { return get(eAnchorType.ordinal()).getBounds();	}
 	public Anchors() {
 		for (int i = 0; i < EAnchors.values().length-1; i++) {
 			this.add(new Ellipse2D.Double(0, 0, ANCHORWIDTH, ANCHORHIEGHT));
@@ -75,5 +78,14 @@ public class Anchors extends Vector<Ellipse2D.Double>{
 		}
 		return null;
 	}
-	
+//	public void setTransformedShape(AffineTransform affineTrnasform) {
+//		for (int i=0; i<EAnchors.values().length-1; i++) {
+//			Shape transformedShape = affineTrnasform.createTransformedShape(get(i));			
+//			double x = transformedShape.getBounds().getCenterX();
+//			double y = transformedShape.getBounds().getCenterY();
+//			Ellipse2D.Double anchor = new Ellipse2D.Double();
+//			anchor.setFrameFromCenter(x, y, x+ANCHORWIDTH/2, y+ANCHORHIEGHT/2);
+//			set(i, anchor);
+//		}
+//	}
 }

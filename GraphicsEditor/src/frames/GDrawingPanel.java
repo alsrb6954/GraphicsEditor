@@ -1,4 +1,5 @@
 package frames;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,6 +10,7 @@ import java.util.Vector;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputListener;
 
+import constants.GConstants;
 import constants.GConstants.EAnchors;
 import constants.GConstants.EDrawingType;
 import shapes.GShape;
@@ -22,12 +24,20 @@ import transformer.GTransformer;
 public class GDrawingPanel extends JPanel {
 	// attributes
 	private static final long serialVersionUID = 1L;
+	private boolean bDraw;
+	public boolean getbDraw() { return bDraw; }
+	public void setbDraw(boolean bDraw) { this.bDraw = bDraw; }
+	private Color fillColor, lineColor;
 	// object states
 	private static enum EState {idle, drawingTP, drawingNP, transforming}; 
 	private EState eState;
 	// components
 	private Vector<GShape> shapeVector;
 	public Vector<GShape> getShapeVector() { return shapeVector; }
+	public void setShapeVector(Vector<GShape> shapeVector) {
+		this.shapeVector = shapeVector;
+		repaint();
+	}
 	private MousEventHandler mousEventHandler;
 	// associative attributes
 	private GShape selectedShape;
@@ -41,7 +51,10 @@ public class GDrawingPanel extends JPanel {
 	public GDrawingPanel() {
 		super();
 		//attributes
+		this.bDraw = false;
 		eState = EState.idle;
+		this.fillColor = GConstants.COLOR_FILL_DEFAULT;
+		this.lineColor = GConstants.COLOR_LINE_DEFAULT;
 		//components
 		this.shapeVector = new Vector<GShape>();
 		this.mousEventHandler = new MousEventHandler();
@@ -61,6 +74,12 @@ public class GDrawingPanel extends JPanel {
 			shape.draw((Graphics2D)g);
 		}
 	}
+	public void newCanvas(){
+		this.shapeVector.removeAllElements();
+		this.repaint();
+		this.bDraw = false;
+	}
+
 	private void resetSelected(){
 		for(GShape shape: this.shapeVector){
 			shape.setSelected(false);
@@ -70,6 +89,8 @@ public class GDrawingPanel extends JPanel {
 	private void initTransforming(int x, int y){
 		if(this.currentShape == null) {
 			this.currentShape = this.selectedShape.clone();
+			this.currentShape.setFillColor(fillColor);
+			this.currentShape.setLineColor(lineColor);
 			this.currentTransformer = new GDrawer(this.currentShape);
 		} else if (this.currentShape.getCurrentEAnchor() == EAnchors.MM){
 			this.currentTransformer = new GMover(this.currentShape);
@@ -101,6 +122,7 @@ public class GDrawingPanel extends JPanel {
 		if(this.currentTransformer.getClass().getSimpleName().equals("GDrawer")){
 			this.shapeVector.addElement(this.currentShape);
 		}
+		this.bDraw = true;
 		this.currentShape.setSelected(true);
 		this.repaint();
 		
@@ -121,7 +143,23 @@ public class GDrawingPanel extends JPanel {
 		}
 		this.setCursor(shape.getCurrentEAnchor().getCursor());
 	}
-	
+
+	public void setLineColor(Color lineColor) {
+		if (currentShape != null) {
+			currentShape.setLineColor(lineColor);
+			repaint();
+		} else {
+			this.lineColor = lineColor;
+		}
+	}
+	public void setFillColor(Color fillColor) {
+		if (currentShape != null) {
+			currentShape.setFillColor(fillColor);
+			repaint();
+		} else {
+			this.fillColor = fillColor;
+		}
+	}
 	class MousEventHandler implements MouseMotionListener, MouseInputListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -202,6 +240,4 @@ public class GDrawingPanel extends JPanel {
 		}
 		
 	}
-
-
 }

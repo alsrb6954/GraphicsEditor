@@ -5,6 +5,7 @@ import java.awt.geom.Ellipse2D;
 import constants.GConstants.EDrawingType;
 
 public class GEllipse extends GShape {
+	private static final long serialVersionUID = 1L;
 	private Ellipse2D ellipse;
 	public GEllipse(){
 		super(EDrawingType.TP, new Ellipse2D.Double(0, 0, 0, 0));
@@ -19,10 +20,7 @@ public class GEllipse extends GShape {
 	}
 	public void addPoint(int x, int y) {
 	}
-	public void resize(int x, int y) {
+	public void drawPoint(int x, int y) {
 		this.ellipse.setFrameFromDiagonal(this.ellipse.getX(), this.ellipse.getY(), x, y);
 	}
-	public void move(int x, int y) {
-	}
-
 }

@@ -5,6 +5,7 @@ import java.awt.geom.Line2D;
 import constants.GConstants.EDrawingType;
 
 public class GLine extends GShape {
+	private static final long serialVersionUID = 1L;
 	private Line2D line;
 	public GLine(){
 		super(EDrawingType.TP, new Line2D.Double(0, 0, 0, 0));
@@ -19,10 +20,7 @@ public class GLine extends GShape {
 	}
 	public void addPoint(int x, int y) {
 	}
-	public void resize(int x, int y) {
+	public void drawPoint(int x, int y) {
 		this.line.setLine(this.line.getX1(), this.line.getY1(), x, y);
 	}
-	public void move(int x, int y) {
-	}
-
 }

@@ -5,6 +5,7 @@ import java.awt.Polygon;
 import constants.GConstants.EDrawingType;
 
 public class GPolygon extends GShape{
+	private static final long serialVersionUID = 1L;
 	private Polygon polygon;
 	
 	public GPolygon(){
@@ -22,19 +23,8 @@ public class GPolygon extends GShape{
 	public void addPoint(int x, int y) {
 		this.polygon.addPoint(x, y);
 	}
-	public void resize(int x, int y) {
-		if(this.getCurrentEAnchor() == null) {
-			this.polygon.xpoints[this.polygon.npoints-1] = x;
-			this.polygon.ypoints[this.polygon.npoints-1] = y;
-		}
-	}
-	public void move(int x, int y) {
-		for(int i = 0; i<this.polygon.npoints; i++){
-			this.polygon.xpoints[i] += x - px;
-			this.polygon.ypoints[i] += y - py;
-		}
-		this.polygon.invalidate();
-		px = x;
-		py = y;
+	public void drawPoint(int x, int y) {
+		this.polygon.xpoints[this.polygon.npoints-1] = x;
+		this.polygon.ypoints[this.polygon.npoints-1] = y;
 	}
 }
