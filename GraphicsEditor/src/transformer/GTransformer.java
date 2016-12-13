@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
+import java.util.Vector;
 
 import shapes.GShape;
 
@@ -12,9 +13,11 @@ abstract public class GTransformer {
 	protected Point previousP, anchorP;
 	protected BasicStroke dashedLineStroke; 
 	protected AffineTransform affineTransform;
+	protected Vector<GShape> groupVector;
 	
+	public void setGroupVector(Vector<GShape> groupVector) { this.groupVector = groupVector; }
 	public Point getAnchorP() { return anchorP; }
-	protected GShape getShape() { return this.shape; }
+	public GShape getShape() { return this.shape; }
 	
 	public GTransformer(GShape shape){
 		this.shape = shape;

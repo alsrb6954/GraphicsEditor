@@ -15,12 +15,17 @@ public class GEllipse extends GShape {
 		this.ellipse.setFrameFromDiagonal(x, y, x, y);
 	}
 	public void setPoint(int x, int y) {
-		this.px = x;
-		this.py = y;
 	}
 	public void addPoint(int x, int y) {
 	}
 	public void drawPoint(int x, int y) {
 		this.ellipse.setFrameFromDiagonal(this.ellipse.getX(), this.ellipse.getY(), x, y);
+	}
+	public GShape deepCopy(){
+		GEllipse returnShape = new GEllipse();
+		returnShape.setShape(this.shapeCopy());
+		returnShape.setFillColor(fillColor);
+		returnShape.setLineColor(lineColor);
+		return returnShape;
 	}
 }

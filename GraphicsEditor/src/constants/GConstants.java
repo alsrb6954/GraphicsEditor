@@ -9,17 +9,20 @@ import java.awt.Point;
 import java.awt.Toolkit;
 
 import shapes.GEllipse;
+import shapes.GHeart;
 import shapes.GLine;
 import shapes.GPolygon;
 import shapes.GRectangle;
 import shapes.GSelection;
 import shapes.GShape;
+import shapes.GText;
 
 public class GConstants {
 	public final static String MAINFRAME_TITLE = "GraphicsEditor";
 	public final static String FILEMENU_TITLE = "File";
 	public final static String EDITMENU_TITLE = "Edit";
 	public final static String COLORMENU_TITLE = "Color";
+	public final static String LineMENU_TITLE = "Line";
 	public static final String FILLCOLOR_TITLE ="Select fill color";
 	public static final String LINECOLOR_TITLE="Select line color";
 	public static final Color COLOR_LINE_DEFAULT =Color.black;
@@ -45,7 +48,7 @@ public class GConstants {
 	};
 	// JFrame attributes
 	public static enum EMainFrame {
-		X(100), Y(100), W(400), H(600);
+		X(200), Y(20), W(600), H(700);
 		private int value;
 		private EMainFrame(int value) {
 			this.value = value;
@@ -74,7 +77,9 @@ public class GConstants {
 		redo("redo"), 
 		undo("undo"),
 		group("group"),
-		unGroup("unGroup");
+		unGroup("unGroup"),
+		SelectCancle("SelectCancle"),
+		SelectAll("SelectAll");
 		private String text;
 		private EEditMenuItem(String text){
 			this.text = text;
@@ -92,6 +97,18 @@ public class GConstants {
 		}
 		public String getText() { return this.text; }
 	}
+	public static enum ELineMenuItem{
+		Clear("Clear"),
+		Solid("Solid"), 
+		Dotted("Dotted"), 
+		Double("Double"),
+		LineThickness("LineThickness");
+		private String text;
+		private ELineMenuItem(String text){
+			this.text = text;
+		}
+		public String getText() { return this.text; }
+	}
 	public static enum EDrawingType {
 		TP, NP;
 	}
@@ -100,7 +117,9 @@ public class GConstants {
 		rectangle("rsc/rectangle.gif", "rsc/rectangleSLT.gif", new GRectangle()),
 		ellipse("rsc/ellipse.gif", "rsc/ellipseSLT.gif", new GEllipse()),
 		line("rsc/line.gif", "rsc/lineSLT.gif", new GLine()),
-		polygon("rsc/polygon.gif", "rsc/polygonSLT.gif", new GPolygon());
+		polygon("rsc/polygon.gif", "rsc/polygonSLT.gif", new GPolygon()),
+		heart("rsc/heart.gif", "rsc/heartSLT.gif", new GHeart()),
+		text("rsc/text.gif", "rsc/textSLT.gif", new GText());
 		
 		private String iconName;
 		private String selectedIconName;

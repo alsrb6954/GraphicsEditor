@@ -51,6 +51,7 @@ public class GFileMenu extends JMenu {
 	public void initialize(GDrawingPanel drawingPanel) {
 		this.drawingPanel = drawingPanel;
 	}
+	// open
 	@SuppressWarnings("unchecked")
 	public void inputStream(){
 		try {
@@ -66,6 +67,7 @@ public class GFileMenu extends JMenu {
 			e.printStackTrace();
 		}	
 	}
+	// save
 	public void outputStream(){
 		try {
 			ObjectOutputStream outputStream = new ObjectOutputStream(
@@ -123,7 +125,8 @@ public class GFileMenu extends JMenu {
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showSaveDialog(this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			return chooser.getSelectedFile().getName();
+			String currentDirectory = chooser.getSelectedFile().getParent();
+			return currentDirectory + "/" + chooser.getSelectedFile().getName();
 		}
 		return null;
 	}
@@ -184,21 +187,13 @@ public class GFileMenu extends JMenu {
 	
 	private class ActionHandler implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
-			if(e.getActionCommand().equals(EFileMenuItem.open.name())){
-				open();
-			} else if (e.getActionCommand().equals(EFileMenuItem.newItem.name())) {
-				newCanvas();
-			} else if (e.getActionCommand().equals(EFileMenuItem.save.name())) {
-				save();
-			} else if (e.getActionCommand().equals(EFileMenuItem.saveAs.name())) {
-				saveAs();
-			} else if (e.getActionCommand().equals(EFileMenuItem.print.name())) {
-				print();
-			} else if (e.getActionCommand().equals(EFileMenuItem.close.name())) {
-				close();
-			} else if (e.getActionCommand().equals(EFileMenuItem.exit.name())) {
-				exit();
-			}
+			if(e.getActionCommand().equals(EFileMenuItem.open.name())){ open(); } 
+			else if (e.getActionCommand().equals(EFileMenuItem.newItem.name())) { newCanvas(); }
+			else if (e.getActionCommand().equals(EFileMenuItem.save.name())) { save(); }
+			else if (e.getActionCommand().equals(EFileMenuItem.saveAs.name())) { saveAs(); } 
+			else if (e.getActionCommand().equals(EFileMenuItem.print.name())) { print(); } 
+			else if (e.getActionCommand().equals(EFileMenuItem.close.name())) { close(); } 
+			else if (e.getActionCommand().equals(EFileMenuItem.exit.name())) { exit(); }
 		}
 	}
 

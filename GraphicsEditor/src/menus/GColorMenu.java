@@ -18,10 +18,11 @@ public class GColorMenu extends JMenu {
 	
 	public GColorMenu() {
 		super(GConstants.COLORMENU_TITLE);
+		ActionHandler actionHandler = new ActionHandler();
 		for(EColorMenuItem eMenuItem: EColorMenuItem.values()){
 			JMenuItem menuItem = new JMenuItem(eMenuItem.getText());
+			menuItem.addActionListener(actionHandler);
 			menuItem.setActionCommand(eMenuItem.name());
-			menuItem.addActionListener(new ColorMenuHandler());
 			this.add(menuItem);
 		}	
 	}
@@ -47,7 +48,7 @@ public class GColorMenu extends JMenu {
 		drawingPanel.setFillColor(GConstants.COLOR_FILL_DEFAULT);
 	}
 	
-	private class ColorMenuHandler implements ActionListener{
+	private class ActionHandler implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			switch(EColorMenuItem.valueOf(e.getActionCommand())){
 			case SetLineColor: setLineColor(); break;

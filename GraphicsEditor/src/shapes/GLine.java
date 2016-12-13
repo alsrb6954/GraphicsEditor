@@ -15,12 +15,17 @@ public class GLine extends GShape {
 		this.line.setLine(x, y, x, y);
 	}
 	public void setPoint(int x, int y) {
-		this.px = x;
-		this.py = y;
 	}
 	public void addPoint(int x, int y) {
 	}
 	public void drawPoint(int x, int y) {
 		this.line.setLine(this.line.getX1(), this.line.getY1(), x, y);
+	}
+	public GShape deepCopy(){
+		GLine returnShape = new GLine();
+		returnShape.setShape(this.shapeCopy());
+		returnShape.setFillColor(fillColor);
+		returnShape.setLineColor(lineColor);
+		return returnShape;
 	}
 }
