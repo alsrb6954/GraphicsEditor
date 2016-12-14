@@ -7,12 +7,15 @@ import constants.GConstants.EDrawingType;
 public class GEllipse extends GShape {
 	private static final long serialVersionUID = 1L;
 	private Ellipse2D ellipse;
+	private int px, py;
 	public GEllipse(){
 		super(EDrawingType.TP, new Ellipse2D.Double(0, 0, 0, 0));
 		this.ellipse = (Ellipse2D)getShape();
 	}
 	public void setOrigin(int x, int y) {
 		this.ellipse.setFrameFromDiagonal(x, y, x, y);
+		this.px = x;
+		this.py = y;
 	}
 	public void setPoint(int x, int y) {
 	}
@@ -20,6 +23,7 @@ public class GEllipse extends GShape {
 	}
 	public void drawPoint(int x, int y) {
 		this.ellipse.setFrameFromDiagonal(this.ellipse.getX(), this.ellipse.getY(), x, y);
+		this.ellipse.setFrame(this.ellipse.getX(), this.ellipse.getY(), Math.abs(x - this.px), Math.abs(y - this.py));
 	}
 	public GShape deepCopy(){
 		GEllipse returnShape = new GEllipse();

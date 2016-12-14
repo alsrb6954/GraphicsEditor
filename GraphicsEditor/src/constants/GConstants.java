@@ -101,7 +101,7 @@ public class GConstants {
 		Clear("Clear"),
 		Solid("Solid"), 
 		Dotted("Dotted"), 
-		Double("Double"),
+		Chain("Chain"),
 		LineThickness("LineThickness");
 		private String text;
 		private ELineMenuItem(String text){

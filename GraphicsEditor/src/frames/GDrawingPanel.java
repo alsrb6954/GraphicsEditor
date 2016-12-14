@@ -64,7 +64,6 @@ public class GDrawingPanel extends JPanel {
 		eState = EState.idle;
 		this.fillColor = GConstants.COLOR_FILL_DEFAULT;
 		this.lineColor = GConstants.COLOR_LINE_DEFAULT;
-		this.lineStyle = new BasicStroke();
 		//components
 		this.redo = new Stack<Vector<GShape>>();
 		this.undo = new Stack<Vector<GShape>>();
@@ -233,7 +232,6 @@ public class GDrawingPanel extends JPanel {
     		group.setSelected(true);
     		shapeVector.add(group);
     	}
-    	
     	this.groupVector = group.getShapeVector();
     	repaint();
 	}
@@ -254,7 +252,9 @@ public class GDrawingPanel extends JPanel {
     	shapeVector.addAll(ungroupVector);
 		repaint();
 	}
+	@SuppressWarnings("unchecked")
 	public void selectAll() {
+		this.undo.add((Vector<GShape>)shapeVector.clone());
 		for (GShape shape : shapeVector) {
 			shape.setSelected(true);	
 		}
@@ -319,23 +319,25 @@ public class GDrawingPanel extends JPanel {
 			this.fillColor = fillColor;
 		}
 	}
+
 	@SuppressWarnings("unchecked")
 	public void lineStyle(BasicStroke lineStyle) {
-		this.undo.add((Vector<GShape>)shapeVector.clone());
-		for(GShape shape : shapeVector){
-			if(shape.isSelected()){
+		this.undo.add((Vector<GShape>) shapeVector.clone());
+		for (GShape shape : shapeVector) {
+			if (shape.isSelected()) {
 				shape.setStyle(1);
-				if(shape instanceof GGroup){
-					for(GShape childShape : groupVector){
+				if (shape instanceof GGroup) {
+					for (GShape childShape : groupVector) {
 						childShape.setLineStyle(lineStyle);
 					}
-				} else{
+				} else {
 					shape.setLineStyle(lineStyle);
 				}
 			}
 			repaint();
 		}
 	}
+
 	class MousEventHandler implements MouseMotionListener, MouseInputListener{
 		@Override
 		public void mouseClicked(MouseEvent e) {

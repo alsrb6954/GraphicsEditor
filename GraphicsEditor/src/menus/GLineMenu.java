@@ -40,20 +40,26 @@ public class GLineMenu extends JMenu {
 	}
 	public void clear() {
 		this.lineThickness = 0;
-		this.lineStyle = new  BasicStroke();
+		this.lineStyle = new BasicStroke();
 		this.drawingPanel.lineStyle(lineStyle);
 		this.style = 0;
 	}
 	public void solid() {
-		this.lineStyle = new  BasicStroke(this.lineThickness,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+		this.lineStyle = new BasicStroke(this.lineThickness,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
 		this.drawingPanel.lineStyle(lineStyle);
 		this.style = 0;
 	}
 	public void dotted() {
 		float dashes[] = {4};
-		this.lineStyle = new  BasicStroke(this.lineThickness,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10, dashes, 0);
+		this.lineStyle = new BasicStroke(this.lineThickness,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10, dashes, 0);
 		this.drawingPanel.lineStyle(lineStyle);
 		this.style = 1;
+	}
+	public void chain() {
+		float dashes[] = {30,4,2,4};
+		this.lineStyle = new BasicStroke(this.lineThickness,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10, dashes, 0);
+		this.drawingPanel.lineStyle(lineStyle);
+		this.style = 2;
 	}
 	public void lineThickness() {
 		String[] options = {"OK"};
@@ -70,6 +76,9 @@ public class GLineMenu extends JMenu {
 		}else if (this.style == 1){
 			float dashes[] = {4};
 			this.lineStyle = new  BasicStroke(this.lineThickness,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10, dashes, 0);
+		}else if (this.style == 2){
+			float dashes[] = {30,4,2,4};
+			this.lineStyle = new  BasicStroke(this.lineThickness,BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 10, dashes, 0);
 		}
 		if (selectedOption == 0) {
 			drawingPanel.lineStyle(lineStyle);
@@ -82,7 +91,7 @@ public class GLineMenu extends JMenu {
 			case Clear: clear(); break;
 			case Solid: solid(); break;
 			case Dotted: dotted(); break;
-			case Double: break;
+			case Chain: chain(); break;
 			case LineThickness: lineThickness(); break;
 			}
 		}

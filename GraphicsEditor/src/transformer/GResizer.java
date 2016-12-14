@@ -38,7 +38,6 @@ public class GResizer extends GTransformer {
 		Point2D resizeFactor = computeResizeFactor(this.previousP.x, this.previousP.y, x, y);
 		AffineTransform affineTransform = g2D.getTransform();
 		g2D.translate(this.resizeAnchorP.getX(), this.resizeAnchorP.getY());
-		
 		this.getShape().draw(g2D);
 		this.getShape().resizeShape(resizeFactor);
 		if(getShape() instanceof GGroup){
@@ -98,22 +97,7 @@ public class GResizer extends GTransformer {
 		
 		return new Point.Double(xFactor,yFactor);
 	}
-//	private Point getResizeAnchor() {
-//		Anchors anchors = getShape().getAnchors();
-//		Point resizeAnchor = new Point();
-//		switch (this.getShape().getCurrentEAnchor()) {
-//		case EE: resizeAnchor.setLocation(anchors.getBounds(constants.GConstants.EAnchors.WW).getX(), this.getShape().getBounds().getX()+this.getShape().getBounds().getWidth()); break;
-//		case WW: resizeAnchor.setLocation(anchors.getBounds(constants.GConstants.EAnchors.EE).getX(), this.getShape().getBounds().getX()+this.getShape().getBounds().getWidth()); break;
-//		case SS: resizeAnchor.setLocation(this.getShape().getBounds().getX()+this.getShape().getBounds().getWidth(), anchors.getBounds(constants.GConstants.EAnchors.NN).getY()); break;
-//		case NN: resizeAnchor.setLocation(this.getShape().getBounds().getX()+this.getShape().getBounds().getWidth(), anchors.getBounds(constants.GConstants.EAnchors.SS).getY()); break;
-//		case SE: resizeAnchor.setLocation(anchors.getBounds(constants.GConstants.EAnchors.NW).getX(), anchors.getBounds(constants.GConstants.EAnchors.NW).getY()); break;
-//		case NE: resizeAnchor.setLocation(anchors.getBounds(constants.GConstants.EAnchors.SW).getX(), anchors.getBounds(constants.GConstants.EAnchors.SW).getY()); break;
-//		case SW: resizeAnchor.setLocation(anchors.getBounds(constants.GConstants.EAnchors.NE).getX(), anchors.getBounds(constants.GConstants.EAnchors.NE).getY()); break;
-//		case NW: resizeAnchor.setLocation(anchors.getBounds(constants.GConstants.EAnchors.SE).getX(), anchors.getBounds(constants.GConstants.EAnchors.SE).getY()); break;
-//		default: break;
-//		}
-//		return resizeAnchor;
-//	}
+
 	private Point getResizeAnchor() {
 		Point resizeAnchor = new Point();
 		Ellipse2D.Double tempAnchor = null;
